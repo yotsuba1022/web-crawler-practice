@@ -26,7 +26,7 @@ def get_header_text(url, header_tag):
             return soup.find(header_tag).text
     except Exception as exception:
         return None
-    
+
 
 if __name__ == '__main__':
     main()
