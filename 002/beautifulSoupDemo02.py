@@ -30,9 +30,14 @@ def main():
     resp = requests.get(url)
     soup = BeautifulSoup(resp.text, 'html.parser')
 
+    count_course_number(soup)
     calculate_course_average_price1(soup)
     calculate_course_average_price2(soup)
     retrieve_all_tr_contents(soup)
+
+
+def count_course_number(soup):
+    print('Total course count: ' + str(len(soup.find('table', 'table').tbody.find_all('tr'))) + '\n')
 
 
 def calculate_course_average_price1(soup):
