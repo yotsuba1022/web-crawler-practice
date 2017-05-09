@@ -37,7 +37,7 @@ def main():
     target_pattern = 'crawler.*'
     find_img_source_by_reg(soup, target_pattern)
 
-
+# re.compile API DOC: https://docs.python.org/3/library/re.html#re.compile
 def find_text_content_by_reg(soup, reg_pattern):
     for element in soup.find_all(re.compile(reg_pattern)):
         print(element.text.strip())
