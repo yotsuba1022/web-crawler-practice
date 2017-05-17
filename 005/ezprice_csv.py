@@ -1,6 +1,7 @@
 import requests
 import urllib.parse
 import csv
+import os
 from bs4 import BeautifulSoup
 
 
@@ -17,12 +18,14 @@ def get_web_content(url):
         return resp.text
 
 
-def get_price_info(query):
+def get_price_info(query, page):
     encoded_query = urllib.parse.quote(query)
-    url = EZPRICE_URL + '/s/%s/price/' % encoded_query
-    result_page = get_web_content(url)
-    dom = BeautifulSoup(result_page, 'html5lib')
-    return dom
+    doms = list()
+    for page in range(1, page + 1):
+        url = EZPRICE_URL + '/s/%s/price/?q=%s&p=%s' % (encoded_query, encoded_query, str(page))
+        result_page = get_web_content(url)
+        doms.append(BeautifulSoup(result_page, 'html5lib'))
+    return doms
 
 
 def extract_results(dom):
@@ -36,8 +39,7 @@ def extract_results(dom):
         else:
             item.append('N/A')
         items.append(item)
-    print('Total items: %d.' % (len(items)))
-    return items
+    return items, len(items)
 
 
 def show_results(items):
@@ -45,10 +47,11 @@ def show_results(items):
         print(item)
 
 
-def write_to_csv_file(items):
-    with open(CSV_FILE_NAME, 'w', encoding='UTF-8', newline='') as file:
+def write_to_csv_file(is_first_page, items):
+    with open(CSV_FILE_NAME, 'a', encoding='UTF-8', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(('Item', 'Price', 'Store'))
+        if is_first_page:
+            writer.writerow(('Item', 'Price', 'Store'))
         for item in items:
             writer.writerow((column for column in item))
 
@@ -63,11 +66,19 @@ def read_from_csv_file():
 
 def main():
     query = '吉胖喵'
-    dom = get_price_info(query)
-    items = extract_results(dom)
-    show_results(items)
-    write_to_csv_file(items)
+    page = 5
+    doms = get_price_info(query, page)
+    is_first_page = True
+    total_item_count = 0
+    for dom in doms:
+        items, count = extract_results(dom)
+        total_item_count += count
+        show_results(items)
+        write_to_csv_file(is_first_page, items)
+        is_first_page = False
+    print('There are %s items in %d page(s).' % (total_item_count, page))
     read_from_csv_file()
+    os.remove(CSV_FILE_NAME)
 
 
 if __name__ == '__main__':
