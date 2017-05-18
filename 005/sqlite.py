@@ -30,7 +30,7 @@ def table_exists(connection, table_name):
 def create_table(connection, table_name):
     create_table_cmd = 'CREATE TABLE %s (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, price INTEGER, shop TEXT)' % table_name
     if not table_exists(connection, table_name):
-        print('Table \'%s\' does not exists, creating...' % table_name)
+        print('Table \'%s\' does not exist, creating...' % table_name)
         execute_command(connection, create_table_cmd)
         print('Table \'%s\' created.' % table_name)
     else:
