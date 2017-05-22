@@ -13,6 +13,7 @@ def generate_query_form_data(start_date, end_date):
     viewstate_generator = dom.find(id='__VIEWSTATEGENERATOR')['value']
     # In all the ctlxx$[var_name], the xx will change dynamically,
     # need to check the value before craw the web.
+    # TODO: Refactor it to collect the xx value dynamically.
     form_data = {
         '__VIEWSTATE': view_state,
         '__EVENTVALIDATION': event_validation,
