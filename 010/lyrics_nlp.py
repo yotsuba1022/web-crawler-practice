@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from collections import Counter
 from wordcloud import WordCloud
 
+
 MAYDAY_LYRICS_LIB = 'MayDay.json'
 AIMER_ENGLISH_LIB = 'Aimer-eng.json'
 

@@ -1,7 +1,7 @@
 import jieba
 
 
-jieba.set_dictionary('../dictionary/dict.txt.big')  # 對繁體中文斷詞較準確的字典檔
+jieba.set_dictionary('./dictionary/dict.txt.big')  # 對繁體中文斷詞較準確的字典檔
 
 
 def main():
