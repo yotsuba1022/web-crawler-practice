@@ -78,7 +78,8 @@ def main():
         is_first_page = False
     print('There are %s items in %d page(s).' % (total_item_count, page))
     read_from_csv_file()
-    os.remove(CSV_FILE_NAME)
+    # Uncomment this if you don't want to keep the data in csv file.
+    # os.remove(CSV_FILE_NAME)
 
 
 if __name__ == '__main__':
