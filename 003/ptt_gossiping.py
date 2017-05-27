@@ -79,9 +79,10 @@ def main():
             current_page = get_web_page(PTT_URL + prev_url)
             current_articles, prev_url = get_articles(current_page, today)
 
+        print("Today's 5566:")
         print(get_author_ids(articles, '5566'))
 
-        print('There are ', len(articles), ' posts today.')
+        print('\nThere are ', len(articles), ' posts today.')
         threshold = 50
         print('Hot post(≥ %d push): ' % threshold)
         for article in articles:

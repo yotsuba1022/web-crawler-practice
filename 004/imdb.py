@@ -3,8 +3,9 @@ import json
 import math
 from collections import Counter
 
-
-OMDB_URL = 'http://www.omdbapi.com'
+# Please pay for the key yourself.
+API_KEY = ''
+OMDB_URL = 'http://www.omdbapi.com/?apikey=' + API_KEY
 
 
 def get_movie_date(url):
@@ -19,7 +20,7 @@ def search_ids_by_keyword(keywords):
     movie_ids = list()
     # e.g., "Iron Man" -> Iron+Man
     query = '+'.join(keywords.split())
-    url = OMDB_URL + '/?s=' + query
+    url = OMDB_URL + '&s=' + query
     data = get_movie_date(url)
 
     if data:
@@ -29,7 +30,7 @@ def search_ids_by_keyword(keywords):
         num_pages = math.floor(total/10) + 1
 
         for i in range(2, num_pages+1):
-            url = OMDB_URL + '/?s=' + query + '&page=' + str(i)
+            url = OMDB_URL + '&s=' + query + '&page=' + str(i)
             data = get_movie_date(url)
             if data:
                 for item in data['Search']:
@@ -38,7 +39,7 @@ def search_ids_by_keyword(keywords):
 
 
 def search_by_id(movie_id):
-    url = OMDB_URL + '/?i=' + movie_id
+    url = OMDB_URL + '&i=' + movie_id
     data = get_movie_date(url)
     return data if data else None
 

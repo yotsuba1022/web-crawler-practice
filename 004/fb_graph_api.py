@@ -1,6 +1,7 @@
 import requests
 
 
+# To obtain the access token, go to https://developers.facebook.com/tools/explorer.
 ACCESS_TOKEN = ''
 
 

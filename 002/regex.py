@@ -12,7 +12,7 @@ def main():
     # [a-zA-Z0-9]+ -> means that we hope the result string is composed by character a~z, A~Z and 0~9,
     # and the string length should ≥ 1 (which represented by "+").
 
-    # http://[a-zA-Z0-9\.]+ -> means hyper link.
+    # http(s)?://[a-zA-Z0-9\./_]+ -> means hyper link.
 
     # [\u4e00-\u9fa5]+ -> means all the chinese words in unicode format.
 
@@ -36,6 +36,7 @@ def main():
     print('\nTo find how many image sources contains the word \"crawler\"')
     target_pattern = 'crawler.*'
     find_img_source_by_reg(soup, target_pattern)
+
 
 # re.compile API DOC: https://docs.python.org/3/library/re.html#re.compile
 def find_text_content_by_reg(soup, reg_pattern):
