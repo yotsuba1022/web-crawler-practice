@@ -37,7 +37,6 @@ def main():
     current_year = time.strftime('%Y')
     current_month = time.strftime('%m')
     print('Processing data for %s %s...' % (current_year, current_month))
-    get_data(stock_id, current_date)
     collected_info = get_data(stock_id, current_date)
     for info in collected_info:
         print(info)
