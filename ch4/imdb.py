@@ -4,7 +4,7 @@ import math
 from collections import Counter
 
 # Please pay for the key yourself.
-API_KEY = ''
+API_KEY = 'cf8db8fc'
 OMDB_URL = 'http://www.omdbapi.com/?apikey=' + API_KEY
 
 

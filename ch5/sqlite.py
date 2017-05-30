@@ -1,5 +1,7 @@
+from ch5.domain.item import Item
 import sqlite3
 import csv
+
 
 DB_NAME = 'db.sqlite'
 DROP_TABLE_COMMAND = 'DROP TABLE %s'
@@ -40,8 +42,8 @@ def create_table(connection, table_name):
         print('Table \'%s\' created.' % table_name)
 
 
-def insert_data(connection, table_name):
-    insert_record_cmd = 'INSERT INTO %s (item, price, shop) VALUES ("嚕嚕抱枕", 999, "嚕嚕小朋友")' % table_name
+def insert_data(connection, table_name, item):
+    insert_record_cmd = 'INSERT INTO %s (item, price, shop) VALUES ("%s", %d, "%s")' % (table_name, item.name, item.price, item.shop)
     execute_command(connection, insert_record_cmd)
 
 
@@ -70,15 +72,17 @@ def main():
     connection = connect_db(DB_NAME)
     table_name = 'record'
     input_file = 'ezprice.csv'
+    item = Item('嚕嚕抱枕', 999, '嚕嚕小朋友')
     try:
         create_table(connection, table_name)
-        insert_data(connection, table_name)
+        insert_data(connection, table_name, item)
         insert_bulk_record(connection, table_name, input_file)
         update_data(connection, table_name)
         fetch_all_record_from_db(connection, FETCH_ALL_RECORD_COMMAND % table_name)
         connection.close()
-    except Exception:
+    except Exception as exception:
         print('Encounter some exceptions while executing DB tasks, close the connection...')
+        print('Exception message: ' + exception.__str__())
         connection.close()
 
 if __name__ == '__main__':
